@@ -61,7 +61,7 @@ void	run_simulation_bench(t_data *d)
 	printf("per frame: %.3f ms\n", per_frame / 1000000.0);
 }
 
-int main(void)
+int main(int ac, char **av)
 {
     t_data d;
 
@@ -73,10 +73,12 @@ int main(void)
 
 	// print_cells(&d);
 
-	if (BENCHMARK == true)
-	    run_simulation_bench(&d);
-	else
+	if (ac == 1)
 		run_simulation(&d);
+	else if (ac == 2 && !strcmp(av[1], "bench"))
+		run_simulation_bench(&d);
+	else 
+		printf(RED"error fmt\n"RESET);
 
     free_data(&d);
 
